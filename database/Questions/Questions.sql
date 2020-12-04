@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS Questions (
   reported INT NOT NULL,
   helpful INT NOT NULL
 );
+-- Query OK, 0 rows affected (0.04 sec)
 
 CREATE TABLE IF NOT EXISTS Answers (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -23,12 +24,14 @@ CREATE TABLE IF NOT EXISTS Answers (
   reported INT NOT NULL,
   helpful INT NOT NULL
 );
+-- Query OK, 0 rows affected (0.01 sec)
 
 CREATE TABLE IF NOT EXISTS Photos (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   answer_id INT NOT NULL,
   url VARCHAR(250) NOT NULL
 );
+-- Query OK, 0 rows affected (0.01 sec)
 
 LOAD DATA LOCAL INFILE '/Users/christopherliang/Desktop/Systems\ Design\ Capstone/starting-point/data-clean/questions-clean.csv'
 INTO TABLE Questions
@@ -36,6 +39,8 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (id, product_id, body, date_written, asker_name, asker_email, reported, helpful);
+-- Query OK, 3521634 rows affected, 4 warnings (19.85 sec)
+-- Records: 3521634  Deleted: 0  Skipped: 0  Warnings: 4
 
 LOAD DATA LOCAL INFILE '/Users/christopherliang/Desktop/Systems\ Design\ Capstone/starting-point/data-clean/answers-clean.csv'
 INTO TABLE Answers
@@ -43,6 +48,8 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (id, question_id, body, date_written, answerer_name, answerer_email, reported, helpful);
+-- Query OK, 12392946 rows affected, 28 warnings (59.05 sec)
+-- Records: 12392946  Deleted: 0  Skipped: 0  Warnings: 28
 
 LOAD DATA LOCAL INFILE '/Users/christopherliang/Desktop/Systems\ Design\ Capstone/starting-point/data-clean/photos-clean.csv'
 INTO TABLE Photos
@@ -50,3 +57,5 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (id, answer_id, url);
+-- Query OK, 3717892 rows affected (19.17 sec)
+-- Records: 3717892  Deleted: 0  Skipped: 0  Warnings: 0
