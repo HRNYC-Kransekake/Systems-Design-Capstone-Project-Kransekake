@@ -15,9 +15,9 @@ app.use(parser.urlencoded({ extended: true }));
 app.use(express.static('./client/dist'));
 app.use(cors());
 
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(mainDir, 'client/dist', 'index.html'));
-// });
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(mainDir, 'client/dist', 'index.html'));
+});
 
 // connection to router
 app.use('/', router);
