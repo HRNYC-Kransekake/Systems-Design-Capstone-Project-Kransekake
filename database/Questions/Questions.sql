@@ -59,3 +59,6 @@ IGNORE 1 ROWS
 (id, answer_id, url);
 -- Query OK, 3717892 rows affected (19.17 sec)
 -- Records: 3717892  Deleted: 0  Skipped: 0  Warnings: 0
+
+CREATE INDEX product_id_index ON Questions (product_id);
+CREATE INDEX question_id_index ON Answers (question_id);
