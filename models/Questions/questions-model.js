@@ -90,11 +90,19 @@ module.exports = {
     });
   },
   
-  modelsPostAnswer: (product_id, body, asker_name, asker_email, callback) => {
+  modelsPostAnswer: (params, callback) => {
+    console.log(params);
     let date = new Date().toISOString().slice(0, 10);
     const postAnswersQuery = 
-    `INSERT INTO Answers (id, question_id, body, date_written, answerer_name, answerer_email, reported, helpful)\
-    VALUES (?, ${product_id}, ${body}, date, ${asker_name}, ${asker_email}, 0, 0);`;
+    `INSERT INTO Answers (question_id, body, date_written, answerer_name, answerer_email, reported, helpful)\
+     VALUES (?, ?, ${JSON.stringify(date)}, ?, ?, 0, 0);`;
+    db.query(postAnswersQuery, params, (error, result) => {
+      if (error) {
+        console.log('Error with postAnswers query: ', error);
+      } else {
+        callback(null, result);
+      }
+    });
   },
 
   modelsHelpfulAnswer: (answer_id, callback) => {
@@ -102,12 +110,26 @@ module.exports = {
     `UPDATE Answers\
      SET helpful = helpful + 1\
      WHERE id = ${answer_id};`;
+    db.query(putHelpfulAnswerQuery, (error, result) => {
+      if (error) {
+        console.log('Error with helpfulAnswer query: ', error);
+      } else {
+        callback(null, result);
+      }
+    });
   },
 
   modelsReportAnswer: (answer_id, callback) => {
     const putReportAnswerQuery = 
     `UPDATE Answers\
-     SET report = 1\
+     SET reported = 1\
      WHERE id = ${answer_id};`;
+    db.query(putReportAnswerQuery, (error, result) => {
+      if (error) {
+        console.log('Error with reportAnswer query: ', error);
+      } else {
+        callback(null, result);
+      }
+    });
   }
 };

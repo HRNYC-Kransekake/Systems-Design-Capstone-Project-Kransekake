@@ -20,6 +20,7 @@ module.exports = {
       }
     });
   },
+
   postQuestion: (req, res) => {
     const params = [req.params.product_id, req.body.body, req.body.asker_name, req.body.asker_email];
     modelsPostQuestion(params, (error, result) => {
@@ -31,8 +32,8 @@ module.exports = {
       }
     });
   },
+
   helpfulQuestion: (req, res) => {
-    console.log(req.params);
     modelsHelpfulQuestion(req.params.question_id, (error, result) => {
       if (error) {
         console.log('Error with updating helpful question: ', error);
@@ -41,6 +42,7 @@ module.exports = {
       }
     });
   },
+
   reportQuestion: (req, res) => {
     modelsReportQuestion(req.params.question_id, (error, result) => {
       if (error) {
@@ -50,6 +52,7 @@ module.exports = {
       }
     });
   },
+
   // Answers
   getAnswers: (req, res) => {
     modelsGetAnswers(req.params.question_id, (error, result) => {
@@ -61,10 +64,36 @@ module.exports = {
       }
     });
   },
+
   postAnswer: (req, res) => {
+    const params = [req.params.question_id, req.body.body, req.body.answerer_name, req.body.answerer_email];
+    modelsPostAnswer(params, (error, result) => {
+      if (error) {
+        console.log('Error with posting Questions in Controller: ', error);
+        res.sendStatus(500);
+      } else {
+        res.send();
+      }
+    });
   },
+
   helpfulAnswer: (req, res) => {
+    modelsHelpfulAnswer(req.params.answer_id, (error, result) => {
+      if (error) {
+        console.log('Error with updating helpful question: ', error);
+      } else {
+        res.send();
+      }
+    });
   },
+
   reportAnswer: (req, res) => {
+    modelsReportAnswer(req.params.answer_id, (error, result) => {
+      if (error) {
+        console.log('Error with reporting question: ', error);
+      } else {
+        res.send();
+      }
+    });
   }
 };
