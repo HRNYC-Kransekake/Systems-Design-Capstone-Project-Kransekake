@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const QuestionsController = require('../controllers/Questions/index.js');
+const QuestionsController = require('../controllers/Questions/questions-controller.js');
 // const ReviewsController = require('../controllers/Reviews');
 
 // routing for Questions & Answers

@@ -18,6 +18,7 @@ questionsDbConnection.connect(function (error) {
 const db = questionsDbConnection;
 
 module.exports = {
+  // Questions
   modelsGetQuestions: (product_id, callback) => {
     const getQuestionsQuery = 
     `SELECT id, product_id, body, date_written, asker_name, asker_email, reported, helpful\
@@ -32,6 +33,49 @@ module.exports = {
     });
   },
 
+  modelsPostQuestion: (params, callback) => {
+    let date = new Date().toISOString().slice(0, 10);
+    const postQuestionsQuery = 
+    `INSERT INTO Questions (product_id, body, date_written, asker_name, asker_email, reported, helpful)\
+     VALUES (?, ?, ${JSON.stringify(date)}, ?, ?, 0, 0);`;
+    db.query(postQuestionsQuery, params, (error, result) => {
+      if (error) {
+        console.log('Error with postQuestions query: ', error);
+      } else {
+        callback(null, result);
+      }
+    });
+  },
+
+  modelsHelpfulQuestion: (question_id, callback) => {
+    const putHelpfulQuestionQuery = 
+    `UPDATE Questions\
+     SET helpful = helpful + 1\
+     WHERE id = ${question_id};`;
+    db.query(putHelpfulQuestionQuery, (error, result) => {
+      if (error) {
+        console.log('Error with helpfulQuestions query: ', error);
+      } else {
+        callback(null, result);
+      }
+    });
+  },
+
+  modelsReportQuestion: (question_id, callback) => {
+    const putReportQuestionQuery = 
+    `UPDATE Questions\
+     SET reported = 1\
+     WHERE id = ${question_id};`;
+    db.query(putReportQuestionQuery, (error, result) => {
+      if (error) {
+        console.log('Error with reportQuestions query: ', error);
+      } else {
+        callback(null, result);
+      }
+    });
+  },
+
+  // Answers
   modelsGetAnswers: (question_id, callback) => {
     const getAnswersQuery =
     `SELECT id, question_id, body, date_written, answerer_name, answerer_email, reported, helpful\
@@ -45,33 +89,12 @@ module.exports = {
       }
     });
   },
-
-  modelsPostQuestion: (product_id, body, asker_name, asker_email, callback) => {
-    const date = new Date();
-    const postQuestionsQuery = 
-    `INSERT INTO Questions (id, product_id, body, date_written, asker_name, asker_email, reported, helpful)\
-    VALUES (?, ${product_id}, ${body}, ${date}, ${asker_name}, ${asker_email}, 0, 0);`;
-  },
-
+  
   modelsPostAnswer: (product_id, body, asker_name, asker_email, callback) => {
-    const date = new Date();
+    let date = new Date().toISOString().slice(0, 10);
     const postAnswersQuery = 
     `INSERT INTO Answers (id, question_id, body, date_written, answerer_name, answerer_email, reported, helpful)\
     VALUES (?, ${product_id}, ${body}, date, ${asker_name}, ${asker_email}, 0, 0);`;
-  },
-
-  modelsHelpfulQuestion: (question_id, callback) => {
-    const putHelpfulQuestionQuery = 
-    `UPDATE Questions\
-     SET helpful = helpful + 1\
-     WHERE question_id = ${question_id};`;
-  },
-
-  modelsReportQuestion: (question_id, callback) => {
-    const putReportAnswerQuery = 
-    `UPDATE Questions\
-     SET report = 1\
-     WHERE question_id = ${question_id};`;
   },
 
   modelsHelpfulAnswer: (answer_id, callback) => {
@@ -87,5 +110,4 @@ module.exports = {
      SET report = 1\
      WHERE id = ${answer_id};`;
   }
-
 };
