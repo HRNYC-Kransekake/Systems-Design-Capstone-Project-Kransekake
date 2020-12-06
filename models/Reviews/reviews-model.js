@@ -1,8 +1,8 @@
-const reviewDb = require('../database/Reviews/reviewsDB.js');
+const reviewDb = require('../../database/Reviews/reviewsDB.js');
 
 module.exports = {
   getAllReviews: function (params, callback) {
-    const row = params.page * params.count;
+    const row = (Number(params.page) - 1) * Number(params.count);
     const count = params.count;
     const queryStr = `SELECT * ,
     (select JSON_ARRAYAGG(url)
@@ -11,7 +11,7 @@ module.exports = {
     from reviews
     WHERE reviews.product_id=${params.product_id}
     ORDER BY ${params.sort} DESC
-    LIMIT ${params.row},${params.count}`;
+    LIMIT ${row},${count}`;
 
     reviewDb.query(queryStr, function (err, results) {
       if (err) {
@@ -31,7 +31,3 @@ module.exports = {
     });
   }, // a function which can be used to insert a message into the database
 };
-
-photoUrl: 'players/game board players/game board,players/game board,players/game board';
-photoUrl.split(',');
-str1 + ' ' + str2;
