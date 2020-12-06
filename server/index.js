@@ -7,7 +7,6 @@ const router = require('./routes.js');
 const app = express();
 const port = 3000;
 const mainDir = __dirname.substring(0, __dirname.length - 6);
-console.log(mainDir);
 
 // middleware
 app.use(parser.json());
@@ -15,11 +14,11 @@ app.use(parser.urlencoded({ extended: true }));
 app.use(express.static('./client/dist'));
 app.use(cors());
 
+// connection to router
+app.use('/', router);
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(mainDir, 'client/dist', 'index.html'));
 });
-
-// connection to router
-app.use('/', router);
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
