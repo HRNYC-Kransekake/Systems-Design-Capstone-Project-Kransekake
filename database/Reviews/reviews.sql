@@ -73,3 +73,8 @@ Query OK, 19337415 rows affected
 
 CREATE INDEX product_id_index ON reviews (product_id);
 CREATE INDEX review_id_index ON review_photos (review_id);
+
+/* remove double quotes from mysql column */
+UPDATE review_photos
+   SET url = TRIM(BOTH
+'"' FROM url)

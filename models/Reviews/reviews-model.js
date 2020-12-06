@@ -5,7 +5,7 @@ module.exports = {
     const row = (Number(params.page) - 1) * Number(params.count);
     const count = params.count;
     const queryStr = `SELECT * ,
-    (select JSON_ARRAYAGG(url)
+    (select JSON_ARRAYAGG((JSON_object('id', review_photos.id, 'url', review_photos.url)))
     FROM review_photos
     where review_photos.review_id = reviews.id) as photos
     from reviews
@@ -17,6 +17,10 @@ module.exports = {
       if (err) {
         console.log(err);
       } else {
+        for (item of results) {
+          item.photos = JSON.parse(item.photos);
+        }
+        console.log(results);
         callback(err, results);
       }
     });
