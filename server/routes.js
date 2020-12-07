@@ -19,6 +19,6 @@ router.put('/qa/answer/:answer_id/helpful', QuestionsController.helpfulAnswer);
 router.put('/qa/answer/:answer_id/report', QuestionsController.reportAnswer);
 
 // routing for Reviews
-router.get('/reviews', ReviewsController.getAll);
+router.get('/reviews/:product_id', ReviewsController.getAll);
 
 module.exports = router;

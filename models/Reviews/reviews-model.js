@@ -34,4 +34,26 @@ module.exports = {
       callback(err, results);
     });
   }, // a function which can be used to insert a message into the database
+
+  // a function that will extract all the metadatas from database
+  GetAllMeta: function (params, callback) {
+    var queryStr = `select (JSON_ARRAYAGG(rating))AS ratings,
+      sum(recommend) AS recommended,
+      (SELECT json_objectagg((select characteristics.name from characteristics where characteristics.id = characteristic_reviews.characteristic_id) ,JSON_object('id', characteristic_reviews.id, 'value', characteristic_reviews.value))
+      from characteristic_reviews
+      where characteristic_reviews.review_id = reviews.id) AS characteristics
+      from reviews WHERE reviews.product_id=${params.product_id}`;
+
+    reviewDb.query(queryStr, function (err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        for (item of results) {
+          item.ratings = JSON.parse(item.ratings);
+        }
+        console.log(results);
+        callback(err, results);
+      }
+    });
+  },
 };
