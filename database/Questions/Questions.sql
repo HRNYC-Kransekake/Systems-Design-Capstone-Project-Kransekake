@@ -62,3 +62,5 @@ IGNORE 1 ROWS
 
 CREATE INDEX product_id_index ON Questions (product_id);
 CREATE INDEX question_id_index ON Answers (question_id);
+CREATE INDEX answer_id_index ON Answers (id);
+CREATE INDEX photo_answer_id_index ON Photos (answer_id);

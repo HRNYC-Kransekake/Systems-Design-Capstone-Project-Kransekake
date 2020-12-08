@@ -66,6 +66,7 @@ module.exports = {
   },
 
   postAnswer: (req, res) => {
+    // req.body.answer_id
     const params = [req.params.question_id, req.body.body, req.body.answerer_name, req.body.answerer_email];
     modelsPostAnswer(params, (error, result) => {
       if (error) {
