@@ -42,6 +42,16 @@ class QAmodule extends React.Component {
 
   getData() {
     var pid = this.props.prodID;
+    // axios.get(`/qa/${pid}`)
+    //   .then((result) => { this.setState({questions: result.data}); })
+    //   .then(() => {
+    //     axios.get(`http://3.21.164.220/products/${pid}`).then((result) => {
+    //       this.setState({ product: result.data.name });
+    //     });
+    //   })
+    //   .catch((error) => { console.log('Error with get questions/ products Request: ', error); });
+
+
     axios
       .get(`http://3.21.164.220/qa/questions/`, {
         params: { product_id: pid, count: 50 },
