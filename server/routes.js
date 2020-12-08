@@ -19,6 +19,11 @@ router.put('/qa/answer/:answer_id/helpful', QuestionsController.helpfulAnswer);
 router.put('/qa/answer/:answer_id/report', QuestionsController.reportAnswer);
 
 // routing for Reviews
-router.get('/reviews/:product_id', ReviewsController.getAll);
+// postman params acting weird, for testing purpse, I had to use ? instead of :.
+router.get('/reviews/?', ReviewsController.getAll);
+router.get('/reviews/meta/?', ReviewsController.getMeta);
+router.post('/reviews/?', ReviewsController.createRe);
+router.put('/reviews/:review_id/helpful', ReviewsController.postHelpful);
+router.put('/reviews/:review_id/report', ReviewsController.postReport);
 
 module.exports = router;
