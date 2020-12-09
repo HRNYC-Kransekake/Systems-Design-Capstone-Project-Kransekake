@@ -108,7 +108,7 @@ module.exports = {
     let date = new Date().toISOString().slice(0, 10);
     const postAnswersQuery =
     `INSERT INTO Answers (question_id, body, date_written, answerer_name, answerer_email, reported, helpful),
-     VALUES (?, ?, ${JSON.stringify(date)}, ?, ?, 0, 0);`
+     VALUES (?, ?, ${JSON.stringify(date)}, ?, ?, 0, 0);`;
     // `INSERT INTO Photos (answer_id, url) VALUES ('SELECT id FROM Answers WHERE', ?)`;
     // Query Time After Indexing: 8.1 ms
     db.query(postAnswersQuery, params, (error, result) => {
