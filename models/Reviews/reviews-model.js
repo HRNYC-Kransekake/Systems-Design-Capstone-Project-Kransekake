@@ -1,4 +1,5 @@
 const reviewDb = require('../../database/Reviews/reviewsDB.js');
+const dbConnection = require('../../server/db-connect.js');
 
 module.exports = {
   getAllReviews: function (params, callback) {
@@ -13,7 +14,7 @@ module.exports = {
     ORDER BY ${params.sort} DESC
     LIMIT ${row},${count}`;
 
-    reviewDb.query(queryStr, function (err, results) {
+    dbConnection.query(queryStr, function (err, results) {
       if (err) {
         console.log(err);
       } else {
@@ -30,7 +31,7 @@ module.exports = {
     // create a message for a user id based on the given username
     var queryStr = `insert into reviews (product_id, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
        values (?, ?, ${JSON.stringify(date)}, ?, ?, ?, 0, ?, ?, null, 0)`;
-    reviewDb.query(queryStr, params, function (err, results) {
+    dbConnection.query(queryStr, params, function (err, results) {
       callback(err, results);
     });
   }, // a function which can be used to insert a message into the database
@@ -44,7 +45,7 @@ module.exports = {
       where characteristic_reviews.review_id = reviews.id) AS characteristics
       from reviews WHERE reviews.product_id=${params.product_id}`;
 
-    reviewDb.query(queryStr, function (err, results) {
+    dbConnection.query(queryStr, function (err, results) {
       if (err) {
         console.log(err);
       } else {
@@ -60,7 +61,7 @@ module.exports = {
     const queryStr = `UPDATE reviews\
      SET helpfulness = helpfulness + 1\
      WHERE id = ${review_id};`;
-    reviewDb.query(queryStr, (error, result) => {
+    dbConnection.query(queryStr, (error, result) => {
       if (error) {
         console.log(error);
       } else {
@@ -72,7 +73,7 @@ module.exports = {
     const queryStr = `UPDATE reviews\
      SET reported = 1\
      WHERE id = ${review_id};`;
-    reviewDb.query(queryStr, (error, result) => {
+    dbConnection.query(queryStr, (error, result) => {
       if (error) {
         console.log('Error with reportQuestions query: ', error);
       } else {
