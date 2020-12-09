@@ -1,18 +1,18 @@
-var mysql = require('mysql');
-var MYSQL_PW = require('./config.js');
+// var mysql = require('mysql');
+// var MYSQL_PW = require('./config.js');
 
-const reviews_dbConnection = mysql.createConnection({
-  user: 'root',
-  password: MYSQL_PW,
-  database: 'SDC_catwalk',
-});
+// const reviews_dbConnection = mysql.createConnection({
+//   user: 'root',
+//   password: MYSQL_PW,
+//   database: 'SDC_catwalk',
+// });
 
-reviews_dbConnection.connect(function (err) {
-  if (err) {
-    console.log('theres an error: ', err);
-  } else {
-    console.log('connected!');
-  }
-});
+// reviews_dbConnection.connect(function (err) {
+//   if (err) {
+//     console.log('theres an error: ', err);
+//   } else {
+//     console.log('connected!');
+//   }
+// });
 
-module.exports = reviews_dbConnection;
+// module.exports = reviews_dbConnection;
