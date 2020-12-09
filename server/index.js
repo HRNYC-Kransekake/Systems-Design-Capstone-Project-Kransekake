@@ -5,7 +5,7 @@ const cors = require('cors');
 const router = require('./routes.js');
 
 const app = express();
-const port = 3000;
+const port = 3306;
 // const mainDir = __dirname.substring(0, __dirname.length - 6);
 
 // middleware
