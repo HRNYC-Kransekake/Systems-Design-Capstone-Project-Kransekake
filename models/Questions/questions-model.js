@@ -1,22 +1,22 @@
 const mysql = require('mysql');
-const { mysqlPassword } = require('../../config.js');
-// const dbConnection = require('../../server/db-connect.js');
+// const { mysqlPassword } = require('../../config.js');
+const dbConnection = require('../../server/db-connect.js');
 
-questionsDbConnection = mysql.createConnection({
-  user: 'root',
-  password: mysqlPassword,
-  database: 'QuestionsAnswers',
-});
+// questionsDbConnection = mysql.createConnection({
+//   user: 'root',
+//   password: mysqlPassword,
+//   database: 'QuestionsAnswers',
+// });
 
-questionsDbConnection.connect(function (error) {
-  if (error) {
-    console.log('Error connecting to Questions_Db: ', error);
-  } else {
-    console.log('Connected to Questions Db!');
-  }
-});
+// questionsDbConnection.connect(function (error) {
+//   if (error) {
+//     console.log('Error connecting to Questions_Db: ', error);
+//   } else {
+//     console.log('Connected to Questions Db!');
+//   }
+// });
 
-const db = questionsDbConnection;
+const db = dbConnection;
 
 module.exports = {
   // Questions
