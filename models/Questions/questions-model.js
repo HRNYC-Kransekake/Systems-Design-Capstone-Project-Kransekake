@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const { mysqlPassword } = require('../../config.js');
+// const dbConnection = require('../../server/db-connect.js');
 
 questionsDbConnection = mysql.createConnection({
   user: 'root',
@@ -20,8 +21,7 @@ const db = questionsDbConnection;
 module.exports = {
   // Questions
   modelsGetQuestions: (product_id, callback) => {
-    const getQuestionsQuery = 
-    `SELECT id, product_id, body, date_written, asker_name, asker_email, reported, helpful
+    const getQuestionsQuery = `SELECT id, product_id, body, date_written, asker_name, asker_email, reported, helpful
      FROM Questions
      WHERE product_id = ${product_id};`;
     // Initial Query Time:  1615 ms
@@ -37,8 +37,7 @@ module.exports = {
 
   modelsPostQuestion: (params, callback) => {
     let date = new Date().toISOString().slice(0, 10);
-    const postQuestionsQuery = 
-    `INSERT INTO Questions (product_id, body, date_written, asker_name, asker_email, reported, helpful)
+    const postQuestionsQuery = `INSERT INTO Questions (product_id, body, date_written, asker_name, asker_email, reported, helpful)
      VALUES (?, ?, ${JSON.stringify(date)}, ?, ?, 0, 0);`;
     // Initial Query Time: 5610 ms
     // After Indexing: 6.1 ms
@@ -52,8 +51,7 @@ module.exports = {
   },
 
   modelsHelpfulQuestion: (question_id, callback) => {
-    const putHelpfulQuestionQuery = 
-    `UPDATE Questions
+    const putHelpfulQuestionQuery = `UPDATE Questions
      SET helpful = helpful + 1
      WHERE id = ${question_id};`;
     // Query Time After Indexing: 8.2 ms
@@ -67,8 +65,7 @@ module.exports = {
   },
 
   modelsReportQuestion: (question_id, callback) => {
-    const putReportQuestionQuery = 
-    `UPDATE Questions
+    const putReportQuestionQuery = `UPDATE Questions
      SET reported = 1
      WHERE id = ${question_id};`;
     // Query Time After Indexing: 5.9 ms
@@ -83,8 +80,7 @@ module.exports = {
 
   // Answers
   modelsGetAnswers: (question_id, callback) => {
-    const getAnswersQuery =
-    `SELECT *,
+    const getAnswersQuery = `SELECT *,
       (SELECT JSON_ARRAYAGG((JSON_object('id', Photos.id, 'url', Photos.url)))
 	     FROM Photos
        WHERE Photos.answer_id = Answers.id) AS Photos
@@ -103,11 +99,10 @@ module.exports = {
       }
     });
   },
-  
+
   modelsPostAnswer: (params, callback) => {
     let date = new Date().toISOString().slice(0, 10);
-    const postAnswersQuery =
-    `INSERT INTO Answers (question_id, body, date_written, answerer_name, answerer_email, reported, helpful),
+    const postAnswersQuery = `INSERT INTO Answers (question_id, body, date_written, answerer_name, answerer_email, reported, helpful),
      VALUES (?, ?, ${JSON.stringify(date)}, ?, ?, 0, 0);`;
     // `INSERT INTO Photos (answer_id, url) VALUES ('SELECT id FROM Answers WHERE', ?)`;
     // Query Time After Indexing: 8.1 ms
@@ -121,8 +116,7 @@ module.exports = {
   },
 
   modelsHelpfulAnswer: (answer_id, callback) => {
-    const putHelpfulAnswerQuery = 
-    `UPDATE Answers
+    const putHelpfulAnswerQuery = `UPDATE Answers
      SET helpful = helpful + 1
      WHERE id = ${answer_id};`;
     // Query Time After Indexing: 10 ms
@@ -136,8 +130,7 @@ module.exports = {
   },
 
   modelsReportAnswer: (answer_id, callback) => {
-    const putReportAnswerQuery =
-    `UPDATE Answers
+    const putReportAnswerQuery = `UPDATE Answers
      SET reported = 1
      WHERE id = ${answer_id};`;
     // Query Time After Indexing: 8.2 ms
@@ -148,5 +141,5 @@ module.exports = {
         callback(null, result);
       }
     });
-  }
+  },
 };
