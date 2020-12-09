@@ -90,3 +90,14 @@ UPDATE characteristics
 SET GLOBAL sql_mode
 =
 (SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+/* enable load local infile */
+SHOW GLOBAL VARIABLES
+LIKE 'local_infile';
+SET GLOBAL local_infile
+= 'ON';
+
+
+
+
+
