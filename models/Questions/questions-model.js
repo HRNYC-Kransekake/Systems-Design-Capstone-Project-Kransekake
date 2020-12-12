@@ -1,22 +1,4 @@
-const mysql = require('mysql');
-// const { mysqlPassword } = require('../../config.js');
-const dbConnection = require('../../server/db-connect.js');
-
-// questionsDbConnection = mysql.createConnection({
-//   user: 'root',
-//   password: mysqlPassword,
-//   database: 'QuestionsAnswers',
-// });
-
-// questionsDbConnection.connect(function (error) {
-//   if (error) {
-//     console.log('Error connecting to Questions_Db: ', error);
-//   } else {
-//     console.log('Connected to Questions Db!');
-//   }
-// });
-
-const db = dbConnection;
+const db = require('../../server/db-connect.js');
 
 module.exports = {
   // Questions
@@ -91,10 +73,10 @@ module.exports = {
       if (error) {
         console.log('Error with getQuestions query: ', error);
       } else {
-        // iterate through results and parse
-        for (item of result) {
-          item.Photos = JSON.parse(item.Photos);
-        }
+        // iterate through results and parse - do not need for mysql2
+        // for (item of result) {
+        //   item.Photos = JSON.parse(item.Photos);
+        // }
         callback(null, result);
       }
     });
