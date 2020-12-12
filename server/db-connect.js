@@ -1,9 +1,11 @@
-var mysql = require('mysql');
+var mysql = require('mysql2');
 
 const dbConnection = mysql.createConnection({
   user: 'root',
   password: 'secret',
   database: 'SDC_catwalk',
+  host: 'mysql1',
+  port: '3306',
 });
 
 dbConnection.connect(function (err) {

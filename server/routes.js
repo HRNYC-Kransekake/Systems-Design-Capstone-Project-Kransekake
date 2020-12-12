@@ -12,6 +12,8 @@ router.put('/qa/question/:question_id/report', QuestionsController.reportQuestio
 router.put('/qa/answer/:answer_id/helpful', QuestionsController.helpfulAnswer);
 router.put('/qa/answer/:answer_id/report', QuestionsController.reportAnswer);
 
+router.get('/loaderio-6be18468164873050a640656d167a97f/', QuestionsController.loader);
+
 // routing for Reviews
 // postman params acting weird, for testing purpse, I had to use ? instead of :.
 router.get('/reviews/?', ReviewsController.getAll);

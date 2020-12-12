@@ -18,10 +18,6 @@ module.exports = {
       if (err) {
         console.log(err);
       } else {
-        for (item of results) {
-          item.photos = JSON.parse(item.photos);
-        }
-        console.log(results);
         callback(err, results);
       }
     });
@@ -49,10 +45,6 @@ module.exports = {
       if (err) {
         console.log(err);
       } else {
-        for (item of results) {
-          item.ratings = JSON.parse(item.ratings);
-        }
-        console.log(results);
         callback(err, results);
       }
     });

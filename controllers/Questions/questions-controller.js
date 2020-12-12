@@ -95,5 +95,9 @@ module.exports = {
         res.send();
       }
     });
+  },
+
+  loader: (req, res) => {
+    res.send('loaderio-6be18468164873050a640656d167a97f');
   }
 };

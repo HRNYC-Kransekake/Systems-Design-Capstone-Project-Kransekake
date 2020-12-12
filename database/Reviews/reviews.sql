@@ -28,8 +28,7 @@ CREATE TABLE `reviews`
 (`id`)
 );
 
-
-CREATE TABLE `SDC_catwalk`.`review photos`
+CREATE TABLE `SDC_catwalk`.`review_photos`
 (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `review_id` INT UNSIGNED NOT NULL,

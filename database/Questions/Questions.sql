@@ -44,7 +44,7 @@ IGNORE 1 ROWS
 -- Query OK, 3521634 rows affected, 4 warnings (19.85 sec)
 -- Records: 3521634  Deleted: 0  Skipped: 0  Warnings: 4
 
-LOAD DATA LOCAL INFILE '/cleaned-data/questions-cleaned.csv'
+LOAD DATA LOCAL INFILE '/cleaned-data/questions-clean.csv'
 INTO TABLE Questions
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
@@ -69,7 +69,7 @@ IGNORE 1 ROWS
 (id, question_id, body, date_written, answerer_name, answerer_email, reported, helpful);
 -- Query for uploading to Docker
 
-LOAD DATA LOCAL INFILE '/Users/christopherliang/Desktop/Systems\ Design\ Capstone/starting-point/data-clean/photos-clean.csv'
+LOAD DATA LOCAL INFILE '/Users/christopherliang/Desktop/Cleaned-Data/photos-clean.csv'
 INTO TABLE Photos
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
@@ -96,4 +96,3 @@ CREATE INDEX photo_answer_id_index ON Photos (answer_id);
 
 SHOW GLOBAL VARIABLES LIKE 'local_infile';
 SET GLOBAL local_infile= 'ON';
-SHOW GLOBAL VARIABLES LIKE 'local_infile'; mysql --local-infile -uroot -p
